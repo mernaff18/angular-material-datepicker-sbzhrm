@@ -1,0 +1,18 @@
+.form-control
+{
+  margin-top:10px;
+  margin-bottom:10px
+}
+
+.btn
+{
+  color:white;
+  background: green;
+  border:green;
+  padding:10px;
+  cursor: pointer;
+}
+.invalid-feedback
+{
+  color:red;
+}

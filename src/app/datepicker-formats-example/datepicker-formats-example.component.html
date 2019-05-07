@@ -1,0 +1,72 @@
+
+
+
+<mat-horizontal-stepper [linear] = "isLinear" #stepper>
+    <mat-step [stepControl] = "zeroFormGroup">   
+      <form [formGroup]="dateForm" (ngSubmit)="onSubmit()">
+        <ng-template matStepLabel>Create</ng-template>
+              <div class="form-control">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="dp" placeholder="Sdate" formControlName="sdate" [min]="minDate" (dateChange)="addStartDate($event.value)">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="f.sdate.invalid" class="invalid-feedback">
+                    Start Date Should Be Greater Than Current Date
+                </div>
+                <div *ngIf="submitted && f.sdate.errors" class="invalid-feedback">
+                    <div *ngIf="f.sdate.errors.required">SDate is required</div>
+                </div>
+              </div>
+              <div class="form-control">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="dp1" placeholder="Edate" formControlName="edate" [min]="myDate" name="edate">
+                  <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                  <mat-datepicker #dp1 [startAt]="edate"></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="submitted && f.edate.errors" class="invalid-feedback">
+                    <div *ngIf="f.edate.errors.required">EDate is required</div>
+                </div>
+                <div *ngIf="f.edate.invalid" class="invalid-feedback">
+                    End Date Should Be Greater Than Start Date
+                </div>
+              </div>
+              <div>                
+                <button mat-button matStepperNext>Next</button>
+              </div>
+      </form>
+   </mat-step>
+   <mat-step [stepControl] = "firstFormGroup">
+      <form [formGroup] = "firstFormGroup">
+         <ng-template matStepLabel>Enter your name</ng-template>
+         <mat-form-field>
+            <input matInput placeholder = "Last name, First name" formControlName = "firstCtrl" required>
+         </mat-form-field>
+         <div>
+            <button mat-button matStepperPrevious>Back</button>
+           <button mat-button matStepperNext>Next</button>
+         </div>
+      </form>
+   </mat-step>
+   <mat-step [stepControl] = "secondFormGroup">
+      <form [formGroup] = "secondFormGroup">
+         <ng-template matStepLabel>Enter your address</ng-template>
+         <mat-form-field>
+           <input matInput placeholder = "Address" formControlName = "secondCtrl" required>
+         </mat-form-field>
+         <div>
+           <button mat-button matStepperPrevious>Back</button>
+           <button mat-button matStepperNext>Next</button>
+         </div>
+      </form>
+   </mat-step>
+   <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+         Details taken.
+      <div>
+         <button mat-button matStepperPrevious>Back</button>
+         <button mat-button (click) = "stepper.reset()">Reset</button>
+      </div>
+   </mat-step>
+</mat-horizontal-stepper>
+
